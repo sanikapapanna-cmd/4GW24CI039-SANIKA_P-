@@ -1,0 +1,126 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Employee {
+
+    int id;
+    String name;
+    String department;
+    double salary;
+
+    // Constructor
+    Employee(int id, String name, String department, double salary) {
+        this.id = id;
+        this.name = name;
+        this.department = department;
+        this.salary = salary;
+    }
+
+    static ArrayList<Employee> empList = new ArrayList<>();
+    static Scanner sc = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        int choice;
+
+        do {
+            System.out.println("\n--- EMPLOYEE MANAGEMENT SYSTEM ---");
+            System.out.println("1. Add Employee");
+            System.out.println("2. View Employees");
+            System.out.println("3. Search Employee");
+            System.out.println("4. Delete Employee");
+            System.out.println("0. Exit");
+            System.out.print("Enter choice: ");
+
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    addEmployee();
+                    break;
+                case 2:
+                    viewEmployees();
+                    break;
+                case 3:
+                    searchEmployee();
+                    break;
+                case 4:
+                    deleteEmployee();
+                    break;
+                case 0:
+                    System.out.println("Thank you!");
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+            }
+
+        } while (choice != 0);
+    }
+
+    // Add employee
+    static void addEmployee() {
+        System.out.print("Enter ID: ");
+        int id = sc.nextInt();
+
+        System.out.print("Enter Name: ");
+        String name = sc.next();
+
+        System.out.print("Enter Department: ");
+        String dept = sc.next();
+
+        System.out.print("Enter Salary: ");
+        double salary = sc.nextDouble();
+
+        Employee e = new Employee(id, name, dept, salary);
+        empList.add(e);
+
+        System.out.println("Employee added successfully!");
+    }
+
+    // View employees
+    static void viewEmployees() {
+        if (empList.isEmpty()) {
+            System.out.println("No employees found!");
+            return;
+        }
+
+        System.out.println("ID\tName\tDepartment\tSalary");
+        for (Employee e : empList) {
+            System.out.println(e.id + "\t" + e.name + "\t" + e.department + "\t\t" + e.salary);
+        }
+    }
+
+    // Search employee
+    static void searchEmployee() {
+        System.out.print("Enter Employee ID to search: ");
+        int id = sc.nextInt();
+
+        for (Employee e : empList) {
+            if (e.id == id) {
+                System.out.println("Employee Found:");
+                System.out.println("ID: " + e.id);
+                System.out.println("Name: " + e.name);
+                System.out.println("Department: " + e.department);
+                System.out.println("Salary: " + e.salary);
+                return;
+            }
+        }
+
+        System.out.println("Employee not found!");
+    }
+
+    // Delete employee
+    static void deleteEmployee() {
+        System.out.print("Enter Employee ID to delete: ");
+        int id = sc.nextInt();
+
+        for (Employee e : empList) {
+            if (e.id == id) {
+                empList.remove(e);
+                System.out.println("Employee deleted successfully!");
+                return;
+            }
+        }
+
+        System.out.println("Employee not found!");
+    }
+}
